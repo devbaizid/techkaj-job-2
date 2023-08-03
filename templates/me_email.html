@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{item.name}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+    <h1 class="mb-4 text-2xl">Techkaj-job</h1>
+<p>Name: {{item.name}}</p>
+
+<br>
+<p>Email: {{item.email}}</p>
+
+<h1></h1>
+    <p>Cover_letter</p>
+    {{item.cover_letter}}
+<br>
+<p>Bid Amount : {{item.bid_amount}} </p>
+
+<br>
+
+<p>CV Files:</p>
+<a class="p2 py-2 bg-blue-800 text-white " href="https://res.cloudinary.com/dzgdrubmc/image/upload/v1/{{item.cv_file}}">{{item.cv_file}}</a>
+
+
+ <h1>applied from {{item.project.title}}</h1>
+
+
+</body>
+</html>

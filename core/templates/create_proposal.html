@@ -1,0 +1,10 @@
+<h2>Create Proposal</h2>
+
+<form action="{% url 'create_proposal' job.id %}" method="POST">
+  {% csrf_token %}
+  <label for="cover_letter">Cover Letter:</label>
+  <textarea id="cover_letter" name="cover_letter" rows="4" cols="50"></textarea>
+  <label for="bid_amount">Bid Amount:</label>
+  <input type="text" id="bid_amount" name="bid_amount">
+  <button type="submit">Submit Proposal</button>
+</form>

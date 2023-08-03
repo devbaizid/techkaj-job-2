@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Humm {% endblock %}
+
+{% block content  %}
+{% if page == "send" %}
+<div class="mr-auto w-full text-center mt-20 mb-20">
+    <div class="card text-center min-h-screen">
+        <h1 class="text-6xl text-center mb-4" style="margin-top:255px ; font-weight: 800; color: brown;">{{ error_message }}</h1>
+        <a href="{% url 'dashboard'   %}" class="py-2 text-center p-1 " style="text-align: center;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+    background: black;
+    color: white;">Go Back To Page</a>
+    </div>
+</div>
+{% else %}
+<div class="mr-auto w-full text-center mt-20 mb-20">
+    <div class="card text-center min-h-screen">
+        <h1 class="text-6xl text-center mb-4">{{ error_message }}</h1>
+        <a href="{% url 'job_detail' id  %}" class="py-2 text-center p-1 " style="text-align: center;
+    justify-content: center;
+    margin: auto;
+    align-items: center;
+    background: black;
+    color: white;">Go Back To Page</a>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

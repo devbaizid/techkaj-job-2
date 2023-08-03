@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Service 
+{% endblock %}
+{% block content %}
+
+{{ body_html_data.content | safe }}
+
+{% for c in body_html_data %}
+{{ c.content | safe }}
+
+{% endfor %}
+
+<div class="bg-gray-900 lg:flex lg:h-40 lg:items-center max-w-screen-xl mx-auto px-4 py-32">
+    <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl text-white font-bold mb-2">Service </h1>
+
+        <p class="text-white"> Tachkaj-Job, developed by Tachkaj.com, is a leading job platform that connects job
+            seekers with employers, offering a multitude of freelance employment opportunities. It provides a
+            comprehensive platform More
+        </p>
+
+        <div class="flex flex-wrap gap-4 justify-center mt-8"><a
+                class="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
+                href="{% url 'job_list' %}">Get Started With Jobs </a></div>
+    </div>
+</div>
+
+<section class="bg-gray-900 text-white">
+    <div class="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8">
+        <div class="mx-auto max-w-lg text-center">
+            <h2 class="text-3xl font-bold sm:text-4xl">We are provide a freelance Jobs</h2>
+
+            <p class="mt-4 text-gray-300">
+            Connects job seekers with employers, offering a
+            multitude of freelance employment opportunities. 
+
+            </p>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <a class="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/10 hover:shadow-pink-500/10"
+                href="{% url 'job_list' %}">
+             
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+    <path
+        d="M12 2C6.48 2 2 6.48 2 12c0 5.52 4.48 10 10 10s10-4.48 10-10c0-5.52-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13.75c-2.38 0-4.25 1.87-4.25 4.25S9.62 15.75 12 15.75s4.25-1.87 4.25-4.25S14.38 6.25 12 6.25zm0 6.5c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+</svg>
+
+                <h2 class="mt-4 text-xl font-bold text-white">Opportunities</h2>
+
+                <p class="mt-1 text-sm text-gray-300">
+              
+        Explore a wide range of freelance job opportunities and connect with employers in
+                    various industries.</p>
+
+
+                
+            </a>
+<a class="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/10 hover:shadow-pink-500/10"
+    href="{% url 'job_list' %}">
+
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+        <path
+            d="M12 2C6.48 2 2 6.48 2 12c0 8.52 4.38 90 10 10s10-4.48 10-10c0-5.52-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-13.75c-2.38 0-4.25 1.87-4.25 4.25S9.62 15.75 12 15.75s4.25-1.87 4.25-4.25S14.38 6.25 12 6.25zm0 6.5c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+    </svg>
+
+    <h2 class="mt-4 text-xl font-bold text-white">Connecting With US</h2>
+
+    <p class="mt-1 text-sm text-gray-300">
+
+      Anybody can Connecting with Us Easly,,  Just Explore a wide range of freelance job opportunities and connect with employers in
+        various industries.</p>
+
+
+
+</a>
+
+
+
+<a class="block rounded-xl border border-gray-800 p-8 shadow-xl transition hover:border-pink-500/10 hover:shadow-pink-500/10"
+    href="{% url 'job_list' %}">
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+    <path
+        d="M19.68 4.52a1 1 0 0 0-1.41 0l-1.9 1.9A6.98 6.98 0 0 0 12 4c-1.92 0-3.68.76-4.99 2.01l-1.9-1.9a1 1 0 0 0-1.41 1.41l1.92 1.92A6.98 6.98 0 0 0 4 12c0 1.92.76 3.68 2.01 4.99l-1.92 1.92a1 1 0 0 0 1.41 1.41l1.9-1.9A6.98 6.98 0 0 0 12 20c1.92 0 3.68-.76 4.99-2.01l1.9 1.9a1 1 0 0 0 1.41-1.41l-1.92-1.92A6.98 6.98 0 0 0 20 12c0-1.92-.76-3.68-2.01-4.99l1.92-1.92a1 1 0 0 0 0-1.41zM12 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6zm-.5-10.25A2.75 2.75 0 0 0 9.75 10v1.5a.75.75 0 0 0 1.5 0v-1.5c0-.69.56-1.25 1.25-1.25h.5a.75.75 0 0 0 0-1.5h-.5zm0 3.5a.75.75 0 0 0-1.5 0v1.5c0 .69-.56 1.25-1.25 1.25h-.5a.75.75 0 0 0 0 1.5h.5A2.75 2.75 0 0 0 11.25 14v-1.5a.75.75 0 0 0 1.5 0v1.5c0 .69-.56 1.25-1.25 1.25h-.5a.75.75 0 0 0 0 1.5h.5A2.75 2.75 0 0 0 11.25 18v-1.5a.75.75 0 0 0 1.5 0v1.5c0 .69-.56 1.25-1.25 1.25h-.5a.75.75 0 0 0 0 1.5h.5A2.75 2.75 0 0 0 13.75 22h.5a.75.75 0 0 0 0-1.5h-.5a2.75 2.75 0 0 0-2.75-2.75v1.5a.75.75 0 0 0 1.5 0v-1.5c0-.69.56-1.25 1.25-1.25h.5a.75.75 0 0 0 0-1.5h-.5z" />
+</svg>
+
+    <h2 class="mt-4 text-xl font-bold text-white">Accepting Money</h2>
+
+    <p class="mt-1 text-sm text-gray-300">
+
+    You can Easily,,Accepting you money ,, with Paypal or stripe ,, and the get you money ,, </p>
+
+
+
+</a>
+        
+        </div>
+
+        <div class="mt-12 text-center">
+            <a href="{%  url 'login'%}"
+                class="inline-block rounded bg-pink-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-pink-700 focus:outline-none focus:ring focus:ring-yellow-400">
+                Get Started Today
+            </a>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

@@ -1,0 +1,7 @@
+<h2>Hire Freelancer</h2>
+
+<form action="{% url 'hire_freelancer' proposal.id %}" method="POST">
+  {% csrf_token %}
+
+  <button type="submit">Confirm Hire</button>
+</form>

@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+{% load guest_user %}
+
+{% block title %}
+{{job.title}}
+{% endblock %}
+
+{% block content %}
+<meta name="title" content="tachkaj-job,, {{ job.title}}">
+<meta name="description" content="{{ job.description}}">
+<meta name="keywords" content="tachkaj-job,jobs">
+<meta name="robots" content="index, follow">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="language" content="English">
+
+
+{% if user|is_guest_user %}
+
+<div id="myModal" class="fixed inset-0 flex items-center justify-center z-50">
+	<div class="bg-white md:w-[50%] p-6 rounded shadow">
+		<button id="closeModal" class="float-right top-2 right-2 text-gray-600 hover:text-gray-800 focus:outline-none">
+			<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+			</svg>
+		</button>
+
+		<svg class="h-6 w-6 text-blue-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+				d="M12 9v2m0 4h.01m-6.938 4h13.856c.797 0 1.44-.69 1.44-1.544V7.544C20.31 6.69 19.667 6 18.87 6H5.13C4.333 6 3.69 6.69 3.69 7.544v13.912c0 .854.643 1.544 1.44 1.544z">
+			</path>
+		</svg>
+		<hr />
+
+		<h2 class="text-3xl font-bold mb-4  mt-1">
+			You are Guest ,, You Need Account
+		</h2>
+
+
+
+
+		<a href="{% url 'login' %}"
+			class="bg-blue-500 hover:bg-green-600 mb-3 text-white font-bold py-2 px-4 rounded block text-center">Login</a>
+		<hr />
+
+<a href="{% url 'register' %}"
+	class="bg-gray-900 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded block text-center">Sign up </a>
+
+	
+
+		<a href="{% url "guest_user_convert" %}"
+			class="bg-blue-900 hover:bg-green-600 mt-3 text-white font-bold py-2 px-4 rounded block text-center">Sign up and
+			save Guest user </a>
+
+
+		<hr>
+
+		<p class="text-gray-700 mt-5 text-red-700" style="font-size: 13px;">
+			Before close the window save you data , if you are not
+			saving your data ,, when you go for new tab your data will
+			be lose couse you are Guet user
+		</p>
+
+
+	</div>
+</div>
+
+<style>
+	#myModal {
+		display: none;
+	}
+</style>
+
+<script>
+	// Open the modal
+	function openModal() {
+		document.getElementById("myModal").style.display = "flex";
+	}
+
+	// Close the modal
+	function closeModal() {
+		document.getElementById("myModal").style.display = "none";
+	}
+
+	// Attach event listener to close button
+	document
+		.getElementById("closeModal")
+		.addEventListener("click", closeModal);
+
+	// Show the modal when the page loads
+	window.addEventListener("DOMContentLoaded", openModal);
+</script>
+
+{% else %}
+{% endif %}
+
+
+<div class="max-w-2xl px-6 py-16 mx-auto space-y-12 bg-gray-200">
+	<article class="space-y-8  text-gray-800">
+		<div class="space-y-6">
+			<a href="{% url 'job_list'%}" class="bg-gray-500 p-2 rounded text-white">Back</a>
+			<h1 class="text-4xl font-bold md:tracki md:text-5xl">{{ job.title }}</h1>
+			<div class="flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
+				<div class="flex items-center md:space-x-2">
+					<img src="https://res.cloudinary.com/dzgdrubmc/image/upload/v1688968808/media/default/avatar.png" alt="" class="w-10 h-10 border rounded-full dark:bg-gray-500 dark:border-gray-700">
+					<p class="text-sm ml-3">{{job.owner.username}} • {{ job.deadline }}</p>
+				</div>
+				<p class="flex-shrink-0 mt-3 text-sm md:mt-0"> </p>
+			</div>
+		</div>
+		<br>
+		<strong >Budget: <span class="text-yellow-800">$</span>{{ job.Price }}</strong>
+		<div class="flex flex-wrap py-6 space-x-2 border-t border-dashed dark:border-gray-400">
+			<strong>Skills:</strong>
+			{% for skill in job.skills.all %}
+			<span class="inline-block mb-2 bg-gray-900 rounded-full px-3 py-1 text-sm font-semibold text-gray-100 mr-2 "> {{ skill.name }}</span>
+		  {% endfor %}
+		</div>
+		<strong>Description:</strong><br>
+		<span>		{{ job.description | safe }}
+		</span>
+
+
+	</article>
+	<hr>
+
+
+
+	
+ 
+
+{% if not job.owner == request.user %}
+<strong>Apply for this {{job.title}} Job</strong>
+
+	{% if is_applied %}
+	<p>You have already applied for this job.</p>
+<br>
+	{% if messages %}
+    {% for message in messages %}
+        <div class="bg-blue-500   text-gray-200 p-2 rounded-full mt-2 mb-4">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+	{% else %}
+
+
+
+
+
+	<form action="{% url 'create_proposal' job.id %}" method="POST" enctype="multipart/form-data"  id="dfileForm">
+		{% csrf_token %}
+	{% if error_message %}
+	<p style="color: red;">{{ error_message }}</p>
+	{% endif %}
+
+
+	<label class="block mb-2 text-sm font-medium text-gray-900">Email:</label>
+	<input type="email" id="email" name="email"
+		class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+		placeholder="Enter your Email" required>
+
+
+		<label  class="block mb-2 text-sm font-medium text-gray-900">Name:</label>
+		<input type="text" id="name" name="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your Name" required>
+	
+		<label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Bid Amount:</label>
+		<input type="number" id="bid_amount" name="bid_amount"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your Amount" required  value="0.0">
+	
+			<label for="message" class="block mb-2 text-sm font-medium text-gray-900">Cover Letter:</label>
+			<textarea name="cover_letter" rows="4"
+				class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-300 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+				placeholder="Write your thoughts here..." required></textarea>
+		<br>
+		<label for="cv" class="block mb-2 text-sm font-medium text-gray-900">Resume:</label>
+  
+		 <div class="flex items-center justify-center w-full">
+		  <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+			  <div class="flex flex-col items-center justify-center pt-5 pb-6">
+				  <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+				  <p class="mb-2 text-sm text-gray-500 "><span class="font-semibold">Click to upload</span> or drag and drop</p>
+				  <p class="text-xs text-gray-500 ">Pdf  </p>
+			  </div>
+			  <input id="dropzone-file" type="file" name="cv_file" class="hidden"  accept=".pdf,.jpg,.jpeg,.png,.gif"  required/>
+				<div class="mt-2 mt-2 bg-blue-100 p-2">
+					<span id="uploaded-file-name"></span>
+					<a id="delete-file-link" class="hidden text-red-500">Delete</a>
+				</div>
+		  </label>
+	  </div> 
+	
+<script>
+	const fileInput = document.getElementById('dropzone-file');
+	const uploadedFileName = document.getElementById('uploaded-file-name');
+	const deleteFileLink = document.getElementById('delete-file-link');
+
+	fileInput.addEventListener('change', (event) => {
+		const fileName = event.target.files[0].name;
+		uploadedFileName.textContent = fileName;
+		deleteFileLink.classList.remove('hidden');
+	});
+
+	deleteFileLink.addEventListener('click', () => {
+		fileInput.value = '';
+		uploadedFileName.textContent = '';
+		deleteFileLink.classList.add('hidden');
+	});
+</script>
+
+
+
+
+	  <br>
+		<button id="dsubmitButton" class="inline-flex items-center bg-gray-900 border-0 py-1 px-3 focus:outline-none  rounded text-base text-gray-100 mt-4 md:mt-0" type="submit">Submit Proposal</button>
+	  </form>
+  
+
+<script>
+
+	const dfileForm = document.getElementById('dfileForm');
+	const dsubmitButton = document.getElementById('dsubmitButton');
+
+	dsubmitButton.addEventListener('click', () => {
+		dsubmitButton.disabled = true;
+		dfileForm.submit();
+	});
+
+</script>
+
+
+
+
+	{% endif %}
+
+
+{% endif %}
+
+{% for proposal in proposals %}
+  {% if proposal.freelancer == request.user %}
+
+
+
+  <div class="max-w-lg p-6  border border-gray-800 rounded-lg shadow ">
+  
+
+	<div class="flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
+		<div class="flex items-center md:space-x-2">
+			<p class="text-sm"><strong class="text-gray-900">   {% if user|is_guest_user %} Guest User  {% else %}{{proposal.freelancer.username}}  {% endif %}</strong> • {{proposal.created_date}}</p>
+		</div>
+		<p class="flex-shrink-0 mt-3 text-sm md:mt-0">  </p>
+	</div>
+	<p class="mt-3">Proposal: <span class="bg-blue-500 p-1 text-white  rounded-lg shadow ">{{proposal.status}} </span> </p>
+	
+	<p class="mt-3"><strong>Bid Amount : {% if proposal.bid_amount %}$ {{proposal.bid_amount}} {% endif %}</strong></p>
+<hr>
+
+<p><strong>Cover letter : </strong></p>
+<p>{{proposal.cover_letter}}</p>
+
+<p> <strong>Resume:</strong></p>
+
+{% if proposal.cv_file %}
+<a href="{{proposal.cv_file.url}}"  class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">View Resume</a>
+{% endif %}
+</div>
+  
+
+
+    
+  {% endif %}
+{% endfor %}
+
+
+{% if job.owner == request.user %}
+
+{% if proposals %}
+<h3>Proposals:</h3>
+{% for proposal in proposals %}
+
+
+
+ 
+  
+
+<div class="max-w-lg p-6  border border-gray-800 rounded-lg shadow ">
+  
+
+		<div class="flex flex-col items-start justify-between w-full md:flex-row md:items-center dark:text-gray-400">
+			<div class="flex items-center md:space-x-2">
+				<img src="https://res.cloudinary.com/dzgdrubmc/image/upload/v1688968808/media/default/avatar.png" alt="" class="w-10 h-10 border rounded-full dark:bg-gray-500 dark:border-gray-700">
+				<p class="text-sm"><strong class="text-gray-900">{% if proposal.name %} {{proposal.name}} {% endif %}  </strong> • {{proposal.created_date}}</p>
+			</div>
+		</div>
+		  <!-- Modal body -->
+		  <div class="p-6 space-y-6">
+			<p class="text-base leading-relaxed   ">
+			  <strong class=" ">Cover Letter:</strong> <br>
+			{% if proposal.cover_letter %}
+			  {{proposal.cover_letter}}
+{% endif %}
+
+		  </p>
+
+
+		  <p class="text-base leading-relaxed   ">
+			  <strong class=" ">CV Resume:</strong> <br>
+				<br>
+				{% if proposal.cv_file %}
+			  <a href="{{proposal.cv_file.url}}" class="  text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">View Resume</a>
+{% endif %}
+
+			  <br> <br>
+			  <strong>Bid Amount</strong>
+			  {% if proposal.bid_amount %}
+			  <p><strong>$</strong> {{proposal.bid_amount}}</p>
+			  {% endif %}
+		  </p>
+		  
+		  
+		</div>
+    
+		<div class=" p-6  dark:border-gray-600">
+			<p class="mb-3">				<strong>Proposal status <span class="bg-blue-500 p-1 text-white  rounded-lg shadow ">{{proposal.status}} </span>  settings</strong>
+			</p>
+		
+			<div class="flex  space-x-2 items-center">
+			
+			</div>
+			</div>
+		
+</div>
+
+
+{% endfor %}
+{% else %}
+<p>No proposals found for this job.</p>
+{% endif %}
+{% endif %}
+
+
+	<div>
+		
+
+	</div>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+

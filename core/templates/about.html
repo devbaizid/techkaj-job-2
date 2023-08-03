@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+About 
+{% endblock %}
+{% block content %}
+
+
+<div class="bg-gray-900 lg:flex lg:h-40 lg:items-center max-w-screen-xl mx-auto px-4 py-32">
+    <div class="max-w-3xl mx-auto text-center">
+        <h1 class="text-4xl text-white font-bold mb-2">About Us</h1>
+
+        <p class="text-white"> Tachkaj-Job, developed by Tachkaj.com, is a leading job platform that connects job
+            seekers with employers, offering a multitude of freelance employment opportunities. It provides a
+            comprehensive platform More
+        </p>
+
+        <div class="flex flex-wrap gap-4 justify-center mt-8"><a
+                class="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
+                href="{% url 'job_list' %}">Get Started With Jobs </a></div>
+    </div>
+</div>
+
+
+
+<section class="mt-4">
+    <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div class="max-w-3xl">
+            <h2 class="text-3xl mb-5 font-bold sm:text-4xl">
+                Tachkaj-job is The freelance job platform
+            </h2>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16">
+            <div class="relative h-64 overflow-hidden sm:h-80 lg:h-full">
+                <img alt="Party" src="/static/about.png" class="absolute inset-0 h-full w-full object-cover">
+            </div>
+
+            <div class="lg:py-16">
+                <article class="space-y-4 text-gray-600">
+
+                    <p>
+                        Tachkaj-job is The freelance job platform ,, Tachkaj-Job, developed by Tachkaj.com, is a leading
+                        job platform that connects job seekers with employers, offering a multitude of freelance
+                        employment opportunities. It provides a comprehensive platform for seamless recruitment and job
+                        search in diverse sectors,
+
+                    </p>
+                    <p>
+                        with access to a wide range of job listings, including full-time, part-time, and freelance
+                        positions. With a user-friendly interface and advanced search filters, Tachkaj-Job simplifies
+                        the job search process, empowering users to effortlessly find their ideal freelance roles.
+                        Committed to bridging the gap between job seekers and employers, Tachkaj-Job facilitates
+                        efficient job placements worldwide.
+
+
+
+
+
+                    </p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+{% for c in body_html_data %}
+{{c.RichTextField | safe}}
+{% endfor %}
+{% endblock %}
